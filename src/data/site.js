@@ -38,7 +38,7 @@ export const site = {
     {
       label: "Our Memories",
       children: [
-        { id: "gallery", label: "Rita's Gallery", note: "Her beautiful moments" },
+        { id: "gallery", label: "Your Gallery", note: "Your beautiful moments" },
         { id: "abuja", label: "Abuja", note: "Four days in August" },
         { id: "years", label: "Through the Years", note: "From school days till now" },
         { id: "calls", label: "Video Calls", note: "Close, even from miles away" },

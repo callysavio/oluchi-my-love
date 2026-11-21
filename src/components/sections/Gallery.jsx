@@ -12,8 +12,8 @@ export default function Gallery() {
         <section id="gallery" className="section section-cream">
             <div className="wrap">
                 <SectionHeading
-                    eyebrow="Her beautiful moments"
-                    title="A Gallery Dedicated to Rita"
+                    eyebrow="Your beautiful moments"
+                    title="A Gallery Dedicated to you"
                     subtitle="Some photographs are simply easier to look at than to describe."
                 />
 
