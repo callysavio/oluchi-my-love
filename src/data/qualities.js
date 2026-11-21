@@ -13,7 +13,7 @@ export const qualities = [
   {
     icon: Heart,
     title: "Your Heart",
-    text: "It is what first drew me to you, and it is still what I admire most. You are pure in heart, and it shows in how you treat everyone.",
+    text: "It is what first drew me to you, and it is still what I admire most. You are pure in heart, and it shows in how you love God.",
   },
   {
     icon: Church,
