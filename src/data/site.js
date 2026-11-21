@@ -6,7 +6,7 @@ export const site = {
 
   welcome: {
     eyebrow: "A little something for you",
-    title: "Obimaka 💕, My Greatest Treasure",
+    title: "Obiamaka 💕, My Greatest Treasure",
     script: "With all my love",            // <- NEW: handwritten line under the title
     hint: "Best enjoyed with sound on", 
     button: "Open Your Love Story",
