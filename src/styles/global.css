@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./garden.css";
+@import "./nav.css";
 
 /* ============ Design tokens (generate utilities like bg-wine, font-serif, shadow-soft) ============ */
 @theme {

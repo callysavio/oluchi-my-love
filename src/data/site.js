@@ -31,16 +31,25 @@ export const site = {
     title: "our song",
   },
 
-  // Order of the navigation. Links to sections that do not exist are hidden automatically.
-  nav: [
+   nav: [
     { id: "hero", label: "Home" },
     { id: "about", label: "About You" },
     { id: "letters", label: "Letters" },
-    { id: "abuja", label: "Abuja" },
-    { id: "years", label: "Through the Years" },
-    { id: "gallery", label: "Gallery" },
-    { id: "calls", label: "Video Calls" },
-    { id: "prayer", label: "Prayer" },
-    { id: "forever", label: "Forever" },
+    {
+      label: "Our Memories",
+      children: [
+        { id: "gallery", label: "Rita's Gallery", note: "Her beautiful moments" },
+        { id: "abuja", label: "Abuja", note: "Four days in August" },
+        { id: "years", label: "Through the Years", note: "From school days till now" },
+        { id: "calls", label: "Video Calls", note: "Close, even from miles away" },
+      ],
+    },
+    {
+      label: "My Heart",
+      children: [
+        { id: "prayer", label: "My Prayer", note: "My wishes for you" },
+        { id: "forever", label: "Forever", note: "Where I hope this is going" },
+      ],
+    },
   ],
 };

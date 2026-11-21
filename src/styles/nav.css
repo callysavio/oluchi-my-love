@@ -1,0 +1,196 @@
+@layer components {
+  /* ================= Header (transparent; no blur/filter on the header itself) ================= */
+  .navbar {
+    @apply fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-6 px-[clamp(1rem,4vw,3rem)] pb-3;
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+
+    /* Soft ivory fade behind the text keeps it readable over photos while staying see-through. */
+    &::before {
+      content: "";
+      @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[135%];
+      background: linear-gradient(to bottom, rgb(250 245 236 / 0.88), rgb(250 245 236 / 0.55) 55%, transparent);
+    }
+    &.is-scrolled::before {
+      background: linear-gradient(to bottom, rgb(250 245 236 / 0.96), rgb(250 245 236 / 0.8) 60%, transparent);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      mask-image: linear-gradient(to bottom, #000 62%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+    }
+  }
+
+  .nav-brand {
+    @apply font-serif text-[1.7rem] leading-none text-wine italic;
+  }
+
+  /* ================= Desktop links ================= */
+  .nav-desktop {
+    @apply flex items-center gap-1 max-[960px]:hidden;
+  }
+  .nav-link {
+    @apply relative inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition duration-300 hover:text-wine;
+    &::after {
+      content: "";
+      @apply absolute inset-x-4 bottom-1.5 h-px origin-left scale-x-0 bg-gold transition-transform duration-300;
+    }
+    &:hover::after,
+    &.is-active::after {
+      @apply scale-x-100;
+    }
+    &.is-active {
+      @apply text-wine;
+    }
+  }
+
+  .nav-chevron {
+    @apply grid size-5 place-items-center rounded-full bg-wine/10 text-wine transition duration-300;
+  }
+
+  /* ---------- Dropdown ---------- */
+  .nav-drop {
+    @apply relative;
+    &.is-open .nav-chevron {
+      @apply rotate-180 bg-wine text-ivory;
+    }
+    &.is-open .nav-panel {
+      @apply visible translate-y-0 opacity-100;
+    }
+  }
+  .nav-panel {
+    /* pt-3 (not margin) keeps the hover area continuous between button and card */
+    @apply invisible absolute top-full left-1/2 z-10 w-[min(300px,90vw)] -translate-x-1/2 translate-y-2 pt-3 opacity-0 transition duration-300;
+    &.is-right {
+      @apply right-0 left-auto translate-x-0;
+    }
+  }
+  .nav-panel-card {
+    @apply rounded-2xl border border-champagne border-t-gold bg-ivory/95 p-2 shadow-soft backdrop-blur-md;
+    & a {
+      @apply flex flex-col gap-0.5 rounded-xl px-4 py-3 transition duration-200 hover:bg-cream;
+      & span {
+        @apply font-serif text-[1.2rem] leading-tight text-wine;
+      }
+      & small {
+        @apply text-[0.78rem] text-muted;
+      }
+      &.is-active {
+        @apply bg-cream;
+        & span {
+          @apply text-rose-deep;
+        }
+      }
+    }
+  }
+
+  /* ================= Menu button (animated burger) ================= */
+  .nav-toggle {
+    @apply relative hidden size-12 place-items-center rounded-full border border-champagne bg-ivory/80 shadow-soft backdrop-blur-md transition duration-300 max-[960px]:grid;
+    &:active {
+      @apply scale-95;
+    }
+  }
+  .burger {
+    @apply relative block h-[14px] w-[22px];
+    & i {
+      @apply absolute left-0 block h-[2px] rounded-full bg-wine transition-all duration-300;
+    }
+    & i:nth-child(1) {
+      @apply top-0 w-full;
+    }
+    & i:nth-child(2) {
+      @apply top-1/2 w-[70%] -translate-y-1/2;
+    }
+    & i:nth-child(3) {
+      @apply bottom-0 w-full;
+    }
+  }
+  .nav-toggle.is-open .burger {
+    & i:nth-child(1) {
+      @apply top-1/2 -translate-y-1/2 rotate-45;
+    }
+    & i:nth-child(2) {
+      @apply opacity-0;
+    }
+    & i:nth-child(3) {
+      @apply top-1/2 bottom-auto -translate-y-1/2 -rotate-45;
+    }
+  }
+
+  /* ---------- Reading-progress line ---------- */
+  .nav-progress {
+    @apply pointer-events-none absolute right-[clamp(1rem,4vw,3rem)] bottom-0 left-[clamp(1rem,4vw,3rem)] h-[2px] origin-left rounded-full opacity-0 transition-opacity duration-300;
+    background: linear-gradient(90deg, var(--color-blush), var(--color-coral), var(--color-gold));
+    transform: scaleX(var(--p, 0));
+  }
+  .navbar.is-scrolled .nav-progress {
+    @apply opacity-100;
+  }
+
+  /* ================= Mobile menu (a sibling of the header, so scrolling can't break it) ================= */
+  .mobile-menu {
+    @apply invisible fixed inset-0 z-[48] flex flex-col overflow-y-auto px-7 opacity-0 transition-[opacity,visibility] duration-400 min-[961px]:hidden;
+    padding-top: calc(env(safe-area-inset-top) + 5.5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);
+    background:
+      radial-gradient(34rem 26rem at 100% 0%, rgb(244 182 194 / 0.5), transparent 60%),
+      radial-gradient(30rem 24rem at 0% 100%, rgb(185 163 227 / 0.35), transparent 60%),
+      var(--color-ivory);
+    &.is-open {
+      @apply visible opacity-100;
+    }
+    &.is-open .m-item {
+      @apply translate-y-0 opacity-100;
+      transition-delay: calc(var(--i, 0) * 70ms + 120ms);
+    }
+  }
+  .m-item {
+    @apply translate-y-3 opacity-0 transition duration-500;
+  }
+
+  .m-link {
+    @apply flex min-h-[60px] w-full items-center justify-between border-b border-champagne/70 py-3 text-left font-serif text-[1.85rem] leading-tight text-wine;
+    &.is-active {
+      @apply text-rose-deep;
+    }
+  }
+  a.m-link.is-active::after {
+    content: "";
+    @apply size-2 rounded-full bg-gold;
+  }
+  .m-chevron {
+    @apply size-8;
+  }
+  .m-group-btn[aria-expanded="true"] .m-chevron {
+    @apply rotate-180 bg-wine text-ivory;
+  }
+
+  /* Accordion: animates height with grid rows, no JS measuring. */
+  .m-sub {
+    @apply invisible grid grid-rows-[0fr] transition-[grid-template-rows,visibility] duration-400;
+    &.is-open {
+      @apply visible grid-rows-[1fr];
+    }
+    & > ul {
+      @apply min-h-0 overflow-hidden;
+    }
+  }
+  .m-sublink {
+    @apply my-2 ml-1 block min-h-11 border-l-2 border-rose py-2 pl-4;
+    & span {
+      @apply block text-[1.2rem] text-ink;
+    }
+    & small {
+      @apply block text-[0.85rem] text-muted;
+    }
+    &.is-active {
+      @apply border-gold;
+      & span {
+        @apply font-medium text-wine;
+      }
+    }
+  }
+
+  .m-foot {
+    @apply mt-auto pt-10 text-center font-script text-[2rem] text-coral;
+  }
+}
