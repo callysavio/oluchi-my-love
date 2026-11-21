@@ -2,10 +2,13 @@ import SectionHeading from "../common/SectionHeading";
 import Reveal from "../common/Reveal";
 import LoveLetter from "../letters/LoveLetter";
 import { lettersIntro, smallNotes } from "../../data/letters";
+import FlowerCorner from "../decor/FlowerCorner";
 
 export default function Letters() {
     return (
         <section id="letters" className="section">
+            <FlowerCorner position="tr" />
+            <FlowerCorner position="bl" />
             <div className="wrap">
                 <SectionHeading eyebrow="My love letters to you" title="In My Own Words" subtitle={lettersIntro} />
 

@@ -1,12 +1,14 @@
 // General site content. Edit freely.
 export const site = {
-  herName: "Rita",
+  herName: "Obiamaka 💕",
   fullName: "Rita Chiaha",
-  yourName: "Nnachi", // <- appears in the letter signature
+  yourName: "Nnachi", // <- appears in the letter signature and closing
 
   welcome: {
     eyebrow: "A little something for you",
-    title: "For Rita, My Greatest Treasure",
+    title: "Obimaka 💕, My Greatest Treasure",
+    script: "With all my love",            // <- NEW: handwritten line under the title
+    hint: "Best enjoyed with sound on", 
     button: "Open Your Love Story",
     image: "rita/portrait-01.jpg",
   },
@@ -21,7 +23,15 @@ export const site = {
     imageAlt: "Portrait of Rita",
   },
 
-  // Order of the navigation. Links to sections that do not exist yet are hidden automatically.
+  // Optional background music. Put an audio file in src/assets/audio/ and write its name here.
+  // If the file does not exist, the music button simply does not appear.
+  // Music NEVER autoplays; Rita has to tap the button.
+  music: {
+    file: "until_i_found_you.mp3",
+    title: "our song",
+  },
+
+  // Order of the navigation. Links to sections that do not exist are hidden automatically.
   nav: [
     { id: "hero", label: "Home" },
     { id: "about", label: "About You" },

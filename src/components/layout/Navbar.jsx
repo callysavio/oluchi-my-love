@@ -32,7 +32,7 @@ export default function Navbar() {
     return (
         <header className={`navbar ${scrolled ? "is-scrolled" : ""}`}>
             <a href="#hero" className="nav-brand" onClick={() => setOpen(false)}>
-                For {site.herName}
+                {site.herName}
             </a>
 
             <button

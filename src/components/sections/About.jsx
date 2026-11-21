@@ -1,11 +1,14 @@
 import SectionHeading from "../common/SectionHeading";
 import Reveal from "../common/Reveal";
 import { qualities } from "../../data/qualities";
+import FlowerCorner from "../decor/FlowerCorner";
 
 export default function About() {
     return (
         <section id="about" className="section section-cream">
-            <div className="wrap">
+<FlowerCorner position="tl" />
+<FlowerCorner position="br" />            
+<div className="wrap">
                 <SectionHeading
                     eyebrow="A little about you"
                     title="What I See When I Look at You"

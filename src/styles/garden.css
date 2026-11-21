@@ -1,0 +1,237 @@
+/* ============ New festive palette ============ */
+@theme {
+  --color-blush: #f4b6c2;
+  --color-coral: #ee7f72;
+  --color-gold: #e8b04a;
+  --color-lavender: #b9a3e3;
+  --color-leaf: #6f9c7e;
+  --color-sky: #8fd0da;
+}
+
+/* ============ Keyframes ============ */
+@keyframes petal-fall {
+  0% { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: 0.95; }
+  50% { transform: translate3d(var(--sway), 50vh, 0) rotate(180deg); }
+  92% { opacity: 0.95; }
+  100% { transform: translate3d(calc(var(--sway) * -0.5), 112vh, 0) rotate(360deg); opacity: 0; }
+}
+@keyframes fly-across {
+  0% { transform: translate3d(-15vw, var(--y0), 0) rotate(8deg); opacity: 0; }
+  8% { opacity: 1; }
+  25% { transform: translate3d(20vw, calc(var(--y0) - 12vh), 0) rotate(-6deg); }
+  50% { transform: translate3d(50vw, calc(var(--y0) + 8vh), 0) rotate(10deg); }
+  75% { transform: translate3d(80vw, calc(var(--y0) - 10vh), 0) rotate(-8deg); }
+  92% { opacity: 1; }
+  100% { transform: translate3d(112vw, calc(var(--y0) + 4vh), 0) rotate(6deg); opacity: 0; }
+}
+@keyframes flap {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.3); }
+}
+@keyframes sway-corner {
+  from { transform: rotate(-2.5deg); }
+  to { transform: rotate(2.5deg); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes glow-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(238 127 114 / 0.55); }
+  70% { box-shadow: 0 0 0 16px rgb(238 127 114 / 0); }
+}
+@keyframes shimmer {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@keyframes ring-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flower-corner svg,
+  .welcome-arch,
+  .welcome-glow,
+  .welcome-title,
+  .btn-glow,
+  .music-eq i,
+  .music-ring {
+    animation: none !important;
+  }
+}
+
+/* ============ Components ============ */
+@layer components {
+  /* ---- Make sections able to hold corner flowers (clip, so sticky still works) ---- */
+  .section,
+  .prayer,
+  .hero {
+    @apply relative overflow-x-clip;
+  }
+  .section.section-cream {
+    @apply bg-cream/80;
+  }
+  .wrap,
+  .prayer-closing {
+    @apply relative z-1;
+  }
+
+  /* ---- Soft coloured atmosphere behind the whole page ---- */
+  .page-glow {
+    @apply pointer-events-none fixed inset-0 -z-10;
+    background:
+      radial-gradient(60rem 40rem at 0% 0%, rgb(244 182 194 / 0.35), transparent 60%),
+      radial-gradient(50rem 40rem at 100% 35%, rgb(185 163 227 / 0.22), transparent 60%),
+      radial-gradient(50rem 40rem at 20% 100%, rgb(232 176 74 / 0.18), transparent 60%);
+  }
+
+  /* ---- Floating flowers & butterflies (never intercept taps, never scroll the page) ---- */
+  .garden {
+    @apply pointer-events-none fixed inset-0 z-30 overflow-hidden motion-reduce:hidden;
+  }
+  .garden-welcome {
+    @apply absolute z-10;
+  }
+  .petal {
+    @apply absolute top-0 will-change-transform;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    opacity: 0;
+    animation: petal-fall var(--dur) linear var(--delay) infinite;
+    & svg {
+      @apply block size-full;
+    }
+  }
+  .butterfly {
+    @apply absolute top-0 left-0 will-change-transform;
+    width: var(--size);
+    opacity: 0;
+    animation: fly-across var(--dur) linear var(--delay) infinite;
+    animation-direction: var(--dir);
+    & svg {
+      @apply block h-auto w-full;
+    }
+  }
+  .wing-l,
+  .wing-r {
+    transform-origin: 50px 40px;
+    animation: flap var(--flap) ease-in-out infinite alternate;
+  }
+
+  /* ---- Corner flower sprigs ---- */
+  .flower-corner {
+    @apply pointer-events-none absolute z-0 w-[clamp(130px,22vw,280px)] select-none max-[640px]:w-[110px] max-[640px]:opacity-60;
+    & svg {
+      @apply block h-auto w-full;
+      transform-origin: 0 0;
+      animation: sway-corner 8s ease-in-out infinite alternate;
+    }
+  }
+  .flower-tl { @apply top-0 left-0; }
+  .flower-tr { @apply top-0 right-0 -scale-x-100; }
+  .flower-bl { @apply bottom-0 left-0 -scale-y-100; }
+  .flower-br { @apply right-0 bottom-0 -scale-100; }
+
+  /* ---- Colourful halo behind portraits ---- */
+  .hero-photo,
+  .forever-photo {
+    @apply relative;
+    &::before {
+      content: "";
+      @apply absolute -inset-6 -z-1 rounded-[999px] opacity-70 blur-2xl;
+      background: linear-gradient(160deg, var(--color-blush), var(--color-lavender) 60%, var(--color-gold));
+    }
+  }
+
+  /* ---- Cards pick up the new colours ---- */
+  .quality > svg { color: var(--accent, var(--color-wine)); }
+  .quality:nth-child(4n + 1) { --accent: var(--color-coral); }
+  .quality:nth-child(4n + 2) { --accent: #8a6fd1; }
+  .quality:nth-child(4n + 3) { --accent: #c98a1e; }
+  .quality:nth-child(4n) { --accent: var(--color-leaf); }
+  .note:nth-child(3n + 2) { @apply border-lavender; }
+  .note:nth-child(3n) { @apply border-gold; }
+
+  /* ---- Welcome screen ---- */
+  .welcome {
+    @apply overflow-hidden;
+  }
+  .welcome-glow {
+    @apply pointer-events-none absolute -inset-[10%];
+    background:
+      radial-gradient(40rem 30rem at 85% 15%, rgb(244 182 194 / 0.55), transparent 60%),
+      radial-gradient(36rem 28rem at 95% 95%, rgb(185 163 227 / 0.4), transparent 60%),
+      radial-gradient(30rem 24rem at 55% 55%, rgb(232 176 74 / 0.25), transparent 60%);
+    animation: glow-drift 14s ease-in-out infinite alternate;
+  }
+  .welcome-photo {
+    @apply grid place-items-center;
+    background: linear-gradient(165deg, #fde2e8, #efe4fa 55%, #fdf0cf);
+  }
+  .welcome-arch {
+    @apply relative aspect-[4/5] w-[min(78%,420px)] overflow-hidden rounded-t-[999px] rounded-b-[24px] max-[760px]:h-[88%] max-[760px]:w-auto;
+    box-shadow:
+      0 0 0 6px rgb(255 255 255 / 0.85),
+      0 0 0 7px var(--color-gold),
+      0 30px 60px -25px rgb(107 31 46 / 0.5);
+    animation: float-y 7s ease-in-out infinite;
+  }
+  .welcome-text {
+    @apply relative z-2;
+  }
+  .welcome-title {
+    @apply bg-linear-to-r from-wine via-coral to-gold bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: shimmer 6s linear infinite alternate;
+  }
+  .welcome-script {
+    @apply font-script text-coral;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.1;
+  }
+  .welcome-hint {
+    @apply inline-flex items-center gap-2 text-[0.78rem] tracking-[0.12em] text-muted;
+  }
+  .btn.btn-glow {
+    background-image: linear-gradient(135deg, var(--color-wine), var(--color-rose-deep));
+    animation: pulse-glow 2.4s ease-out infinite;
+    &:hover {
+      @apply text-ivory;
+    }
+  }
+
+  /* ---- Music button ---- */
+  .music-btn {
+    @apply fixed right-4 z-45 inline-flex h-14 items-center gap-3 rounded-full border border-gold/60 bg-wine pr-5 pl-4 text-ivory shadow-soft transition duration-300 hover:-translate-y-0.5;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    background-image: linear-gradient(135deg, var(--color-wine), var(--color-rose-deep));
+  }
+  .music-ring {
+    @apply pointer-events-none absolute inset-0 rounded-full border-2 border-gold;
+    animation: ring-ping 2.4s ease-out infinite;
+  }
+  .music-eq {
+    @apply flex h-5 items-end gap-[3px];
+    & i {
+      @apply block h-full w-[3px] origin-bottom rounded-full bg-champagne;
+      animation: eq 1s ease-in-out infinite;
+      &:nth-child(2) { animation-delay: 0.2s; }
+      &:nth-child(3) { animation-delay: 0.4s; }
+      &:nth-child(4) { animation-delay: 0.1s; }
+    }
+  }
+  .music-label {
+    @apply text-[0.7rem] uppercase tracking-[0.18em] max-[480px]:sr-only;
+  }
+}

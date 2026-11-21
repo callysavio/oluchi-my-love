@@ -4,12 +4,14 @@ import Reveal from "../common/Reveal";
 import SmartImage from "../common/SmartImage";
 import Lightbox from "../gallery/Lightbox";
 import { yearsIntro, schoolMemories } from "../../data/school";
+import FlowerCorner from "../decor/FlowerCorner";
 
 export default function Years() {
     const [index, setIndex] = useState(null);
 
     return (
         <section id="years" className="section">
+            <FlowerCorner position="tl" />
             <div className="wrap">
                 <SectionHeading eyebrow={yearsIntro.eyebrow} title={yearsIntro.title} subtitle={yearsIntro.text} />
 

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import SmartImage from "../common/SmartImage";
+import FlowerCorner from "../decor/FlowerCorner";
 import { site } from "../../data/site";
 
 export default function Hero() {
@@ -8,6 +9,8 @@ export default function Hero() {
 
     return (
         <section id="hero" className="hero">
+            <FlowerCorner position="tr" />
+            <FlowerCorner position="bl" />
             <div className="wrap hero-grid">
                 <motion.div
                     className="hero-text"
